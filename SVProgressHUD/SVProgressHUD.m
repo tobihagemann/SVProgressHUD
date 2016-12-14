@@ -472,9 +472,17 @@ static const CGFloat SVProgressHUDUndefinedProgress = -1;
     
     self.frame = UIScreen.mainScreen.bounds;
     
-#if !defined(SV_APP_EXTENSIONS)
+#if !defined(SV_APP_EXTENSIONS) && TARGET_OS_IOS
+    self.frame = [[[UIApplication sharedApplication] delegate] window].bounds;
     UIInterfaceOrientation orientation = UIApplication.sharedApplication.statusBarOrientation;
+#elif !defined(SV_APP_EXTENSIONS)
+    self.frame = [UIApplication sharedApplication].keyWindow.bounds;
 #else
+    if (SVProgressHUDExtensionView) {
+        self.frame = SVProgressHUDExtensionView.frame;
+    } else {
+        self.frame = UIScreen.mainScreen.bounds;
+    }
     UIInterfaceOrientation orientation = CGRectGetWidth(self.frame) > CGRectGetHeight(self.frame) ? UIInterfaceOrientationLandscapeLeft : UIInterfaceOrientationPortrait;
 #endif
     // no transforms applied to window in iOS 8, but only if compiled with iOS 8 sdk as base sdk, otherwise system supports old rotation logic.
