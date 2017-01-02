@@ -11,17 +11,18 @@ Pod::Spec.new do |s|
   s.description = 'SVProgressHUD is an easy-to-use, clean and lightweight progress HUD for iOS. It’s a simplified and prettified alternative to the popular MBProgressHUD. The success and error icons are from Freepik.'
 
   s.framework    = 'QuartzCore'
-  s.resources    = 'SVProgressHUD/SVProgressHUD.bundle'
   s.requires_arc = true
 
   s.default_subspec = 'Core'
 
   s.subspec 'Core' do |core|
     core.source_files = 'SVProgressHUD/*.{h,m}'
+    core.resources = 'SVProgressHUD/SVProgressHUD.bundle'
   end
 
   s.subspec 'AppExtension' do |ext|
     ext.source_files = 'SVProgressHUD/*.{h,m}'
+    ext.resources = 'SVProgressHUD/SVProgressHUD.bundle'
     ext.pod_target_xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => 'SV_APP_EXTENSIONS=1' }
   end
 end
